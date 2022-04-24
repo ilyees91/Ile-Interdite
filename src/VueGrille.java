@@ -1,5 +1,9 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 class VueGrille extends JPanel implements Observer {
     /** On maintient une référence vers le modèle. */
@@ -12,7 +16,13 @@ class VueGrille extends JPanel implements Observer {
     private final static int TAILLE_WIDTH = 120;
     private final static int TAILLE_HEIGHT = 100;
     /** Constructeur. */
-    public VueGrille(CModele modele) {
+    File path = null;
+    BufferedImage imgHeli = ImageIO.read(new File(path, "img/helico.png"));
+    BufferedImage fire = ImageIO.read(new File(path, "img/fire.png"));
+    BufferedImage water = ImageIO.read(new File(path, "img/water.png"));
+    BufferedImage air = ImageIO.read(new File(path, "img/air.png"));
+    BufferedImage globe = ImageIO.read(new File(path, "img/globe.png"));
+    public VueGrille(CModele modele) throws IOException {
         this.modele = modele;
         /** On enregistre la vue [this] en tant qu'observateur de [modele]. */
         modele.addObserver(this);
@@ -34,12 +44,16 @@ class VueGrille extends JPanel implements Observer {
         super.repaint();
         for(int i=1; i<=CModele.LARGEUR; i++) {
             for(int j=1; j<=CModele.HAUTEUR; j++) {
-                paint(g, modele.getCellule(i, j), (i-1)*TAILLE_WIDTH, (j-1)*TAILLE_HEIGHT);
+                try {
+                    paint(g, modele.getCellule(i, j), (i-1)*TAILLE_WIDTH, (j-1)*TAILLE_HEIGHT);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }
 
-    public void paint(Graphics g, Cellule c, int x, int y) {
+    public void paint(Graphics g, Cellule c, int x, int y) throws IOException {
         instant1 = System.currentTimeMillis();
          if (debut){
              instant2 = instant1 + 1000;
@@ -68,6 +82,17 @@ class VueGrille extends JPanel implements Observer {
             }
         }
         g.fillRect(x, y, TAILLE_WIDTH, TAILLE_HEIGHT);
+        if(c.getSpecial() == ZoneSpé.helicoptere){
+            g.drawImage(imgHeli, x, y, null);
+        }else if(c.getSpecial() == ZoneSpé.feu){
+            g.drawImage(fire, x, y, null);
+        }else if(c.getSpecial() == ZoneSpé.eau){
+            g.drawImage(water, x, y, null);
+        }else if(c.getSpecial() == ZoneSpé.terre){
+            g.drawImage(globe, x, y, null);
+        }else if(c.getSpecial() == ZoneSpé.air){
+            g.drawImage(air, x, y, null);
+        }
         g.setColor(Color.BLACK);
         g.drawRect(x, y, x+TAILLE_WIDTH, y);
         g.drawRect(x, y+TAILLE_HEIGHT, x+TAILLE_WIDTH, y+TAILLE_HEIGHT);

@@ -9,6 +9,16 @@ class Cellule {
 
     boolean a = false;
 
+    ZoneSpé special;
+
+    public void setSpecial(ZoneSpé special) {
+        this.special = special;
+    }
+
+    public ZoneSpé getSpecial() {
+        return special;
+    }
+
     public Cellule(CModele modele, int x, int y) {
         this.modele = modele;
         this.etat = 0;

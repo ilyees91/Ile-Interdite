@@ -2,6 +2,7 @@ import com.sun.source.tree.PackageTree;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 class   CVue {
 
@@ -12,7 +13,7 @@ class   CVue {
 
     private VueAction action;
 
-    public CVue(CModele modele) {
+    public CVue(CModele modele) throws IOException {
         frame = new JFrame("Jeu de la vie de Conway");
 
         frame.setLayout(null);
@@ -22,6 +23,7 @@ class   CVue {
         grille = new VueGrille(modele);
         grille.setBounds(200,15,120*CModele.HAUTEUR,100*CModele.LARGEUR);
         frame.add(grille);
+        //Image helico = new ImageIcon(this.getClass().getResource("./helico.png")).getImage();
 
         commandes = new VueCommandes(modele);
         commandes.setBounds(200+120*CModele.HAUTEUR,50*CModele.LARGEUR,260,130);
@@ -30,8 +32,6 @@ class   CVue {
         action = new VueAction(modele);
         action.setBounds(200+20*CModele.HAUTEUR,105*CModele.LARGEUR,1000,60);
         frame.add(action);
-
-
 
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

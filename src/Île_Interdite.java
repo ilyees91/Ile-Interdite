@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.io.IOException;
 
 public class Île_Interdite {
     /**
@@ -16,7 +17,11 @@ public class Île_Interdite {
         EventQueue.invokeLater(() -> {
             /** Voici le contenu qui nous intéresse. */
             CModele modele = new CModele();
-            CVue vue = new CVue(modele);
+            try {
+                CVue vue = new CVue(modele);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 }

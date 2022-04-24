@@ -13,6 +13,16 @@ class CModele extends Observable {
 
     private Color couleur;
 
+    private boolean clicker_asseche = false;
+
+    public boolean getClicker_asseche() {
+        return clicker_asseche;
+    }
+
+    public void setClicker_asseche(boolean clicker_asseche) {
+        this.clicker_asseche = clicker_asseche;
+    }
+
     public void setNombreDeTour(boolean a) {
         if(a){
             this.nombreDeTour++;
@@ -70,7 +80,42 @@ class CModele extends Observable {
             ensJoueur[i] = new Joueur(this,name,cellules[(int) (Math.random()*(5-1)) + 1][(int) (Math.random()*(5-1)) + 1], i, couleur);
         }
         joueurEnJeu = ensJoueur[0];
-        phrases = "C'est au tour de "+joueurEnJeu.getName()+" : Vous êtes de Couleur "+joueurEnJeu.getCouleurJ() +" et il vous reste "+(3-getNombreDeTour())+" action";
+        while(true) {
+            int x = (int) (Math.random()*(5-1)) + 1;
+            int y = (int) (Math.random()*(5-1)) + 1;
+            if (cellules[x][y].getSpecial() == null) {
+                cellules[x][y].setSpecial(ZoneSpé.helicoptere);
+                break;
+
+            }
+        }
+        while(true) {
+            int x = (int) (Math.random()*(5-1)) + 1;
+            int y = (int) (Math.random()*(5-1)) + 1;
+            if (cellules[x][y].getSpecial() == null) {
+                cellules[x][y].setSpecial(ZoneSpé.air);
+                break;
+
+            }
+        }
+        while(true) {
+            int x = (int) (Math.random()*(5-1)) + 1;
+            int y = (int) (Math.random()*(5-1)) + 1;
+            if (cellules[x][y].getSpecial() == null) {
+                cellules[x][y].setSpecial(ZoneSpé.eau);
+                break;
+
+            }
+        }
+        while(true) {
+            int x = (int) (Math.random()*(5-1)) + 1;
+            int y = (int) (Math.random()*(5-1)) + 1;
+            if (cellules[x][y].getSpecial() == null) {
+                cellules[x][y].setSpecial(ZoneSpé.feu);
+                break;
+            }
+        }
+        setPhrases("C'est au tour de "+joueurEnJeu.getName()+" : Vous êtes de Couleur "+joueurEnJeu.getCouleurJ() +" et il vous reste "+(3-getNombreDeTour())+" action");
     }
 
     public Joueur getJoueurEnJeu() {
@@ -115,20 +160,21 @@ class CModele extends Observable {
         if(xTab<=0 || xTab>=HAUTEUR+1) return false;
         return !(yTab<=0 || yTab>=LARGEUR+1);
     }
-    public void mouvement(String axe, int mv) {
+    public boolean mouvement(String axe, int mv) {
         int[] coord = getPosTableau(joueurEnJeu.getPosition());
         if (axe == "x"){
-            if (valideDonnee(coord[0]+ mv,coord[1])){
+            if (valideDonnee(coord[0]+ mv,coord[1]) && cellules[coord[0]+ mv][coord[1]].estVivante()<2){
                 joueurEnJeu.setPosition(cellules[coord[0]+ mv][coord[1]]);
+                return true;
             }
         }
         if (axe == "y"){
-            if (valideDonnee(coord[0],coord[1]+ mv)){
+            if (valideDonnee(coord[0],coord[1]+ mv) && cellules[coord[0]][coord[1]+ mv].estVivante()<2){
                 joueurEnJeu.setPosition(cellules[coord[0]][coord[1]+ mv]);
+                return true;
             }
         }
-        phrases = "C'est au tour de "+joueurEnJeu.getName()+" : Vous êtes de Couleur "+joueurEnJeu.getCouleurJ() +" et il vous reste "+(3-getNombreDeTour())+" action";
-        notifyObservers();
+        return false;
     }
     public Joueur[] getEnsJoueur() {
         return ensJoueur;

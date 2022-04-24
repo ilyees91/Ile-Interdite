@@ -21,7 +21,6 @@ class VueCommandes extends JPanel {
         panel.add(bas, BorderLayout.CENTER);
         panel.add(assechez_une_zone, BorderLayout.SOUTH);
         this.add(panel);
-
         Controleur crtl = new Controleur(modele);
         fin.addActionListener(crtl);
         bas.addActionListener(crtl);

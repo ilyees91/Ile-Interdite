@@ -17,6 +17,7 @@ class   CVue {
 
         frame.setLayout(null);
         frame.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
+        frame.setBackground(Color.black);
 
         grille = new VueGrille(modele);
         grille.setBounds(200,15,120*CModele.HAUTEUR,100*CModele.LARGEUR);
@@ -27,9 +28,10 @@ class   CVue {
         frame.add(commandes);
 
         action = new VueAction(modele);
-        action.setBackground(Color.MAGENTA);
-        action.setBounds(200+20*CModele.HAUTEUR,105*CModele.LARGEUR,200,60);
+        action.setBounds(200+20*CModele.HAUTEUR,105*CModele.LARGEUR,1000,60);
         frame.add(action);
+
+
 
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

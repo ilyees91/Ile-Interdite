@@ -37,6 +37,5 @@ class Cellule {
         if(this.etat == 1){
             this.etat--;
         }
-
     }
 }

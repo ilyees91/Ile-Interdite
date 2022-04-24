@@ -5,11 +5,30 @@ import java.util.Scanner;
 class CModele extends Observable {
     public static final int HAUTEUR=6, LARGEUR=6;
     private Cellule[][] cellules;
-    private Joueur[] ensJoeur;
-    private Joueur joeurEnJeu;
+    private Joueur[] ensJoueur;
+    private Joueur joueurEnJeu;
     private int nombreDeJoueur;
-    double mouseX = MouseInfo.getPointerInfo().getLocation().getX();
-    double mouseY = MouseInfo.getPointerInfo().getLocation().getY();
+    private String phrases;
+    private int nombreDeTour;
+
+    private Color couleur;
+
+    public void setNombreDeTour(boolean a) {
+        if(a){
+            this.nombreDeTour++;
+        }else{
+            this.nombreDeTour = 0;
+        }
+
+    }
+
+    public int getNombreDeTour() {
+        return nombreDeTour;
+    }
+
+    public String getPhrases() {
+        return phrases;
+    }
 
     public CModele() {
         cellules = new Cellule[LARGEUR+2][HAUTEUR+2];
@@ -33,22 +52,32 @@ class CModele extends Observable {
             }
         }
         nombreDeJoueur = nombre_joueur;
-        ensJoeur = new Joueur[nombreDeJoueur];
-        Random rand = new Random();
+        ensJoueur = new Joueur[nombreDeJoueur];
         for (int i = 0; i < nombre_joueur ; i++){
             Scanner sc2 = new Scanner(System.in);
             System.out.println("veuiller saisir votre nom : ");
             String name = sc2.nextLine();
-            float r = rand.nextFloat();
-            float g = rand.nextFloat();
-            float b = rand.nextFloat();
-            Color randomColor = new Color(r, g, b);
-            ensJoeur[i] = new Joueur(this,"ilyess",cellules[(int) (Math.random()*(5-1)) + 1][(int) (Math.random()*(5-1)) + 1], i, randomColor);
+            if (i == 0){
+                couleur = new Color(255,0,0);
+            }if(i==1){
+                couleur = Color.PINK;
+            }if(i==2){
+                couleur = Color.BLACK;
+            }if(i==3){
+                couleur = new Color(0,255,0);
+            }
+
+            ensJoueur[i] = new Joueur(this,name,cellules[(int) (Math.random()*(5-1)) + 1][(int) (Math.random()*(5-1)) + 1], i, couleur);
         }
-        joeurEnJeu = ensJoeur[0];
+        joueurEnJeu = ensJoueur[0];
+        phrases = "C'est au tour de "+joueurEnJeu.getName()+" : Vous êtes de Couleur "+joueurEnJeu.getCouleurJ() +" et il vous reste "+(3-getNombreDeTour())+" action";
     }
 
-    public void avance() {
+    public Joueur getJoueurEnJeu() {
+        return joueurEnJeu;
+    }
+
+    public void fin_de_tour() {
         int res = 0;
         while(res < 3) {
             int i = (int) (Math.random() * ((LARGEUR) + 1));
@@ -58,11 +87,13 @@ class CModele extends Observable {
                 res++;
             }
         }
-        if(joeurEnJeu.getNumero()+1 > nombreDeJoueur - 1){
-            joeurEnJeu = ensJoeur[0];
-        }else {
-            joeurEnJeu = ensJoeur[joeurEnJeu.getNumero()+ 1];
+        if(joueurEnJeu.getNumero()+1 > nombreDeJoueur - 1){
+            joueurEnJeu = ensJoueur[0];
+
+        }else{
+            joueurEnJeu = ensJoueur[joueurEnJeu.getNumero()+ 1];
         }
+        phrases = "C'est au tour de "+joueurEnJeu.getName()+" : Vous êtes de Couleur "+joueurEnJeu.getCouleurJ() +" et il vous reste "+(3-getNombreDeTour())+" action";
         notifyObservers();
     }
     public Cellule getCellule(int x, int y) {
@@ -85,21 +116,29 @@ class CModele extends Observable {
         return !(yTab<=0 || yTab>=LARGEUR+1);
     }
     public void mouvement(String axe, int mv) {
-        int[] coord = getPosTableau(joeurEnJeu.getPosition());
+        int[] coord = getPosTableau(joueurEnJeu.getPosition());
         if (axe == "x"){
             if (valideDonnee(coord[0]+ mv,coord[1])){
-                joeurEnJeu.setPosition(cellules[coord[0]+ mv][coord[1]]);
+                joueurEnJeu.setPosition(cellules[coord[0]+ mv][coord[1]]);
             }
         }
         if (axe == "y"){
             if (valideDonnee(coord[0],coord[1]+ mv)){
-                joeurEnJeu.setPosition(cellules[coord[0]][coord[1]+ mv]);
+                joueurEnJeu.setPosition(cellules[coord[0]][coord[1]+ mv]);
             }
         }
+        phrases = "C'est au tour de "+joueurEnJeu.getName()+" : Vous êtes de Couleur "+joueurEnJeu.getCouleurJ() +" et il vous reste "+(3-getNombreDeTour())+" action";
+        notifyObservers();
     }
-    public Joueur[] getEnsJoeur() {
-        return ensJoeur;
+    public Joueur[] getEnsJoueur() {
+        return ensJoueur;
     }
+
+    public void setPhrases(String phrases) {
+        notifyObservers();
+        this.phrases = phrases;
+    }
+
     public Cellule[] voisinTab(int x, int y) {
         int nb = 0;
         Cellule[] tabVoisin = new Cellule[5];
@@ -113,48 +152,51 @@ class CModele extends Observable {
     }
 
     public void assecheV1(boolean a) {
-        int[] coord = getPosTableau(joeurEnJeu.getPosition());
+        int[] coord = getPosTableau(joueurEnJeu.getPosition());
         for (Cellule i : voisinTab(coord[0],coord[1])){
             if (i.estVivante() == 1){
                 i.setChoisit(a);
             }
         }
+        phrases = "Veuillez selectionner une case inonder clignotante";
+
     }
 
     public boolean assecheV2(int x, int y) {
-        int[] cord = getPosTableau(joeurEnJeu.getPosition());
+        int[] cord = getPosTableau(joueurEnJeu.getPosition());
         Cellule[] tab = voisinTab(cord[0],cord[1]);
-
         if(tab[0].isChoisit()&& tab[0]==cellules[x][y]){
             assecheV1(false);
             tab[0].assecheV3();
-            System.out.println("gg");
+            setPhrases("C'est au tour de "+joueurEnJeu.getName()+" : Vous êtes de Couleur "+joueurEnJeu.getCouleurJ() +" et il vous reste "+(3-getNombreDeTour())+ "action");
             return true;
         }else if(tab[1].isChoisit() && tab[1]==cellules[x][y]){
             assecheV1(false);
             tab[1].assecheV3();
-            System.out.println("gg");
+            setPhrases("C'est au tour de "+joueurEnJeu.getName()+" : Vous êtes de Couleur "+joueurEnJeu.getCouleurJ() +" et il vous reste "+(3-getNombreDeTour())+ "action");
             return true;
         }else if(tab[2].isChoisit() && tab[2]==cellules[x][y]){
             assecheV1(false);
+            setPhrases("C'est au tour de "+joueurEnJeu.getName()+" : Vous êtes de Couleur "+joueurEnJeu.getCouleurJ() +" et il vous reste "+(3-getNombreDeTour())+ "action");
             tab[2].assecheV3();
-            System.out.println("gg");
             return true;
         }else if(tab[3].isChoisit() && tab[3]==cellules[x][y]){
             assecheV1(false);
+            setPhrases("C'est au tour de "+joueurEnJeu.getName()+" : Vous êtes de Couleur "+joueurEnJeu.getCouleurJ() +" et il vous reste "+(3-getNombreDeTour())+ "action");
             tab[3].assecheV3();
-            System.out.println("gg");
             return true;
         }else if(tab[4].isChoisit() && tab[4]==cellules[x][y]){
             assecheV1(false);
+            setPhrases("C'est au tour de "+joueurEnJeu.getName()+" : Vous êtes de Couleur "+joueurEnJeu.getCouleurJ() +" et il vous reste "+(3-getNombreDeTour())+ "action");
             tab[4].assecheV3();
-            System.out.println("gg");
             return true;
         }else {
+            phrases = "Action annuler, il vous reste : "+nombreDeTour+"actions";
+            notifyObservers();
             assecheV1(false);
-            System.out.println("ouille tromper de case");
-            return true;
+            return false;
         }
 
     }
+
 }

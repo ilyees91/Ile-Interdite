@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Timer;
 
 class VueGrille extends JPanel implements Observer {
     /** On maintient une référence vers le modèle. */
@@ -29,8 +28,7 @@ class VueGrille extends JPanel implements Observer {
         this.addMouseListener(crtl);
     }
 
-    public void update() { repaint(); }
-
+    public void update() { repaint();}
 
     public void paintComponent(Graphics g) {
         super.repaint();
@@ -67,8 +65,6 @@ class VueGrille extends JPanel implements Observer {
                 g.setColor(Color.CYAN);
             }else {
                 g.setColor(new Color(255,255,0));
-
-
             }
         }
         g.fillRect(x, y, TAILLE_WIDTH, TAILLE_HEIGHT);
@@ -79,7 +75,7 @@ class VueGrille extends JPanel implements Observer {
         g.drawRect(x+TAILLE_WIDTH, y, x+TAILLE_WIDTH, y+TAILLE_HEIGHT);
 
         int res = 0;
-        for (Joueur i : modele.getEnsJoeur()){
+        for (Joueur i : modele.getEnsJoueur()){
             if (i.getPosition() == c){
                 if(res ==0){
                     g.setColor(i.getCouleur());
@@ -102,7 +98,5 @@ class VueGrille extends JPanel implements Observer {
                 }
             }
         }
-
     }
-
 }

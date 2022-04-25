@@ -358,6 +358,64 @@ class CModele extends Observable { // fait toute les calcul
                 }
             }
         }
+        for(int i=0; i<LARGEUR+2; i++) {
+            for(int j=0; j<HAUTEUR+2; j++) {
+                if (cellules[i][j].estVivante() > 1 && cellules[i][j].getSpecial() == ZoneSpé.air) {
+                    for (Artefacts a : joueurEnJeu.getInventaire()){
+                        if(a.getNbObject() == 0){
+                            setPhrases("Zone air inonder, tu peux plus avoir l'artefact");
+                            return true;
+                        }
+                    }
+
+                }
+            }
+        }
+        for(int i=0; i<LARGEUR+2; i++) {
+            for(int j=0; j<HAUTEUR+2; j++) {
+                if (cellules[i][j].estVivante() > 1 && cellules[i][j].getSpecial() == ZoneSpé.eau) {
+                    int nb = 0;
+                    for (Artefacts a : joueurEnJeu.getInventaire()){
+                        if(a.getNbObject() == 0 && nb == 1){
+                            setPhrases("Zone eau inonder, tu peux plus avoir l'artefact");
+                            return true;
+                        }
+                        nb++;
+                    }
+
+                }
+            }
+        }
+        for(int i=0; i<LARGEUR+2; i++) {
+            for(int j=0; j<HAUTEUR+2; j++) {
+                if (cellules[i][j].estVivante() > 1 && cellules[i][j].getSpecial() == ZoneSpé.terre) {
+                    int nb = 0;
+                    for (Artefacts a : joueurEnJeu.getInventaire()){
+                        if(a.getNbObject() == 0 && nb == 2){
+                            setPhrases("Zone Terre inonder, tu peux plus avoir l'artefact");
+                            return true;
+                        }
+                        nb++;
+                    }
+
+                }
+            }
+        }
+        for(int i=0; i<LARGEUR+2; i++) {
+            for(int j=0; j<HAUTEUR+2; j++) {
+                if (cellules[i][j].estVivante() > 1 && cellules[i][j].getSpecial() == ZoneSpé.feu) {
+                    int nb = 0;
+                    for (Artefacts a : joueurEnJeu.getInventaire()){
+                        if(a.getNbObject() == 0 && nb == 3){
+                            setPhrases("Zone feu inonder, tu peux plus avoir l'artefact");
+                            return true;
+                        }
+                        nb++;
+                    }
+
+                }
+            }
+        }
         return false;
     }
 

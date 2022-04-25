@@ -3,7 +3,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-class Controleur extends MouseAdapter implements ActionListener {
+class Controleur extends MouseAdapter implements ActionListener { // tous ce qui est en rapport avec controler le jeux
     CModele modele;
     public Controleur(CModele modele) { this.modele = modele;}
     public void mousePressed(MouseEvent e) {

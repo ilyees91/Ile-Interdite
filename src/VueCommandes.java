@@ -8,6 +8,14 @@ class VueCommandes extends JPanel {
         this.modele = modele;
         JButton fin = new JButton("fin de tour");
         this.add(fin);
+        JButton cle = new JButton("chercher une cle");
+        this.add(cle);
+        JButton artefacts = new JButton("Recuperer Artefacts");
+        this.add(artefacts);
+        JButton voler = new JButton("s'envoler");
+        this.add(voler);
+        JButton sac_de_sable = new JButton("sac de sable");
+        this.add(sac_de_sable);
         JButton haut = new JButton("haut");
         JButton bas = new JButton("bas");
         JButton gauche = new JButton("gauche");
@@ -28,5 +36,9 @@ class VueCommandes extends JPanel {
         gauche.addActionListener(crtl);
         droite.addActionListener(crtl);
         assechez_une_zone.addActionListener(crtl);
+        cle.addActionListener(crtl);
+        artefacts.addActionListener(crtl);
+        voler.addActionListener(crtl);
+        sac_de_sable.addActionListener(crtl);
     }
 }

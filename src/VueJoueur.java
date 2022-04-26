@@ -55,8 +55,8 @@ class VueJoueur extends JPanel implements Observer {
         g.drawString("nombre de cle : "+modele.getEnsJoueur()[1].isCle(), 20, 220);
         g.drawString("Artefact air : "+modele.getEnsJoueur()[1].getInventaire()[0].getNbObject(),20,240);
         g.drawString("Artefact eau : "+modele.getEnsJoueur()[1].getInventaire()[1].getNbObject(),20,260);
-        g.drawString("Artefact feu : "+modele.getEnsJoueur()[1].getInventaire()[2].getNbObject(),20,280);
-        g.drawString("Artefact terre : "+modele.getEnsJoueur()[1].getInventaire()[3].getNbObject(),20,300);
+        g.drawString("Artefact terre : "+modele.getEnsJoueur()[1].getInventaire()[2].getNbObject(),20,280);
+        g.drawString("Artefact feu : "+modele.getEnsJoueur()[1].getInventaire()[3].getNbObject(),20,300);
         g.drawString("Sace de Sable : "+modele.getEnsJoueur()[1].isSac_sable(),20,320);
         g.drawString("Hélicopter : "+modele.getEnsJoueur()[1].isSpé_helico(),20,340);
         g.setColor(modele.getEnsJoueur()[1].getCouleur());
@@ -68,8 +68,8 @@ class VueJoueur extends JPanel implements Observer {
         g.drawString("nombre de cle : "+modele.getEnsJoueur()[2].isCle(), 20, 400);
         g.drawString("Artefact air : "+modele.getEnsJoueur()[2].getInventaire()[0].getNbObject(),20,420);
         g.drawString("Artefact eau : "+modele.getEnsJoueur()[2].getInventaire()[1].getNbObject(),20,440);
-        g.drawString("Artefact feu : "+modele.getEnsJoueur()[2].getInventaire()[2].getNbObject(),20,460);
-        g.drawString("Artefact terre : "+modele.getEnsJoueur()[2].getInventaire()[3].getNbObject(),20,480);
+        g.drawString("Artefact terre : "+modele.getEnsJoueur()[2].getInventaire()[2].getNbObject(),20,460);
+        g.drawString("Artefact feu : "+modele.getEnsJoueur()[2].getInventaire()[3].getNbObject(),20,480);
         g.drawString("Sace de Sable : "+modele.getEnsJoueur()[2].isSac_sable(),20,500);
         g.drawString("Hélicopter : "+modele.getEnsJoueur()[2].isSpé_helico(),20,520);
         g.setColor(modele.getEnsJoueur()[2].getCouleur());
@@ -82,8 +82,8 @@ class VueJoueur extends JPanel implements Observer {
         g.drawString("nombre de cle : "+modele.getEnsJoueur()[3].isCle(), 20, 580);
         g.drawString("Artefact air : "+modele.getEnsJoueur()[3].getInventaire()[0].getNbObject(),20,600);
         g.drawString("Artefact eau : "+modele.getEnsJoueur()[3].getInventaire()[1].getNbObject(),20,620);
-        g.drawString("Artefact feu : "+modele.getEnsJoueur()[3].getInventaire()[2].getNbObject(),20,640);
-        g.drawString("Artefact terre : "+modele.getEnsJoueur()[3].getInventaire()[3].getNbObject(),20,660);
+        g.drawString("Artefact terre : "+modele.getEnsJoueur()[3].getInventaire()[2].getNbObject(),20,640);
+        g.drawString("Artefact feu : "+modele.getEnsJoueur()[3].getInventaire()[3].getNbObject(),20,660);
         g.drawString("Sace de Sable : "+modele.getEnsJoueur()[3].isSac_sable(),20,680);
         g.drawString("Hélicopter : "+modele.getEnsJoueur()[3].isSpé_helico(),20,700);
         g.setColor(modele.getEnsJoueur()[3].getCouleur());

@@ -90,7 +90,7 @@ class CModele extends Observable { // fait toute les calcul
             joueurEnJeu.setCle(false);
             return true;
         } else {
-            setPhrases("Erreur, action annuler");
+            setPhrases("Erreur, action annuler, il te reste : "+getNombreDeTour()+" action");
             return false;
         }
     }
@@ -354,6 +354,7 @@ class CModele extends Observable { // fait toute les calcul
         for(int i=0; i<LARGEUR+2; i++) {
             for(int j=0; j<HAUTEUR+2; j++) {
                 if (cellules[i][j].estVivante() > 1 && cellules[i][j].getSpecial() == ZoneSpé.helicoptere) {
+                    setPhrases("l'hélico est Tomber :/");
                     return true;
                 }
             }

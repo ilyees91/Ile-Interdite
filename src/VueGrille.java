@@ -132,14 +132,14 @@ class VueGrille extends JPanel implements Observer {
             }
         } else {
             g.setColor(Color.black);
-            g.drawRect (0, 0, 1000, 700);
-            g.fillRect (x, y, 1000, 700);
+            g.drawRect (0, 0, TAILLE_WIDTH * CModele.LARGEUR, TAILLE_HEIGHT * CModele.HAUTEUR);
+            g.fillRect (x, y, TAILLE_WIDTH * CModele.LARGEUR, TAILLE_HEIGHT * CModele.HAUTEUR);
             g.setFont(fonte);
             g.setColor(Color.WHITE);
             if(modele.test_lose()){
-                g.drawString("VOUS AVEZ PERDU",300,350);
+                g.drawString("VOUS AVEZ PERDU",(TAILLE_WIDTH * CModele.LARGEUR/2)-120,TAILLE_HEIGHT * CModele.HAUTEUR/2);
             }else{
-                g.drawString("VOUS AVEZ GAGNER",300,350);
+                g.drawString("VOUS AVEZ GAGNER",(TAILLE_WIDTH * CModele.LARGEUR/2)-120,TAILLE_HEIGHT * CModele.HAUTEUR/2);
             }
         }
     }

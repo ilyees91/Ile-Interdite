@@ -108,7 +108,7 @@ class Controleur extends MouseAdapter implements ActionListener { // tous ce qui
                     modele.setPhrases(modele.getJoueurEnJeu().getName() + " ta trouver un truck . Il te reste " + (3 - modele.getNombreDeTour()) + " action");
 
                 } else {
-                    modele.setPhrases("Aie Aie Aie, ta zone a été inonder, fait belek. Il te reste " + (3 - modele.getNombreDeTour()) + " actions");
+                    modele.setPhrases("Aie Aie Aie, ta zone a été inonder. Il te reste " + (3 - modele.getNombreDeTour()) + " actions");
                 }
         }
         if (e.getActionCommand() == "Recuperer Artefacts") {
@@ -116,14 +116,14 @@ class Controleur extends MouseAdapter implements ActionListener { // tous ce qui
             modele.setCliker_helico(false);
             modele.setCliker_sacSable(false);
             if(modele.recupereArtefacts()){
-                modele.setPhrases("gg ta reussit a avoir l'arthefacts");
+                modele.setPhrases("gg ta reussit a avoir l'arthefacts. il te reste : "+modele.getNombreDeTour()+" action");
             }
         }if(e.getActionCommand() == "s'envoler"){
             if(modele.getJoueurEnJeu().isSpé_helico()){
                 modele.setPhrases("cliker sur une case ou s'envoler");
                 modele.setCliker_helico(true);
             }else{
-                modele.setPhrases("ta pas d'helico frero");
+                modele.setPhrases("tu n'est pas doter d'un Helicopter. Il te reste : "+modele.getNombreDeTour()+" action");
             }
 
         }
@@ -134,7 +134,7 @@ class Controleur extends MouseAdapter implements ActionListener { // tous ce qui
                 modele.setPhrases("cliker sur une case innonder pour assecher");
                 modele.setCliker_sacSable(true);
             }else{
-                modele.setPhrases("ta pas de sac frero frero");
+                modele.setPhrases("tu n'est pas doter d'un sac. Il te reste : "+modele.getNombreDeTour()+" action");
             }
 
         }
@@ -150,7 +150,8 @@ class Controleur extends MouseAdapter implements ActionListener { // tous ce qui
                     modele.fin_de_tour();
                 }
             }else{
-                action(e);}
+                action(e);
+            }
         }
-        }
+    }
 }

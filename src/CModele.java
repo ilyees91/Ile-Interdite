@@ -363,7 +363,7 @@ class CModele extends Observable { // fait toute les calcul
             for(int j=0; j<HAUTEUR+2; j++) {
                 if (cellules[i][j].estVivante() > 1 && cellules[i][j].getSpecial() == ZoneSpé.air) {
                     for (Artefacts a : joueurEnJeu.getInventaire()){
-                        if(a.getNbObject() == 0){
+                        if(a.getNbObject() == 0 && a == Artefacts.air){
                             setPhrases("Zone air inonder, tu peux plus avoir l'artefact");
                             return true;
                         }
@@ -377,7 +377,7 @@ class CModele extends Observable { // fait toute les calcul
                 if (cellules[i][j].estVivante() > 1 && cellules[i][j].getSpecial() == ZoneSpé.eau) {
                     int nb = 0;
                     for (Artefacts a : joueurEnJeu.getInventaire()){
-                        if(a.getNbObject() == 0 && nb == 1){
+                        if(a.getNbObject() == 0 && a == Artefacts.eau){
                             setPhrases("Zone eau inonder, tu peux plus avoir l'artefact");
                             return true;
                         }
@@ -392,7 +392,7 @@ class CModele extends Observable { // fait toute les calcul
                 if (cellules[i][j].estVivante() > 1 && cellules[i][j].getSpecial() == ZoneSpé.terre) {
                     int nb = 0;
                     for (Artefacts a : joueurEnJeu.getInventaire()){
-                        if(a.getNbObject() == 0 && nb == 2){
+                        if(a.getNbObject() == 0 && a == Artefacts.terre){
                             setPhrases("Zone Terre inonder, tu peux plus avoir l'artefact");
                             return true;
                         }
@@ -407,7 +407,7 @@ class CModele extends Observable { // fait toute les calcul
                 if (cellules[i][j].estVivante() > 1 && cellules[i][j].getSpecial() == ZoneSpé.feu) {
                     int nb = 0;
                     for (Artefacts a : joueurEnJeu.getInventaire()){
-                        if(a.getNbObject() == 0 && nb == 3){
+                        if(a.getNbObject() == 0 && a == Artefacts.feu){
                             setPhrases("Zone feu inonder, tu peux plus avoir l'artefact");
                             return true;
                         }

@@ -136,7 +136,6 @@ class Controleur extends MouseAdapter implements ActionListener { // tous ce qui
             }else{
                 modele.setPhrases("tu n'est pas doter d'un sac. Il te reste : "+modele.getNombreDeTour()+" action");
             }
-
         }
     }
     public void actionPerformed(ActionEvent e) {

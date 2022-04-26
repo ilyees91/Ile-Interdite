@@ -29,7 +29,7 @@ public class VueDataPlayer extends JPanel implements ActionListener {
         panel1.setBackground(Color.lightGray);
 
         // Pour Panel
-        JLabel jlabel = new JLabel("Saisir le nombre de joueur");
+        JLabel jlabel = new JLabel("Saisir un nombre de joueur entre 2 et 4");
         jlabel.setFont(new Font("Verdana", 1, 10));// Gestion Police du texte
         text1 = new JTextField();
         text1.setBounds(20, 50, 100, 20);
